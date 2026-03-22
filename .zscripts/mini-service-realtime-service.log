@@ -1,0 +1,17 @@
+[realtime-service] Installing dependencies...
+bun install v1.3.10 (30e609e0)
+
++ socket.io@4.8.3
+
+2 packages installed [127.00ms]
+[realtime-service] Running bun run dev...
+$ bun --hot index.ts
+46 |     }
+47 |   }
+48 |   let er;
+49 |   if (args.length > 0)
+50 |     er = args[0];
+51 |     throw er;
+                 ^
+error: Failed to start server. Is port 3010 in use?
+      at emitError (node:events:51:13)

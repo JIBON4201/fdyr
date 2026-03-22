@@ -1,0 +1,262 @@
+// This is your Prisma schema file,
+// Optimized for high performance with 1000+ concurrent users
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// =====================================================
+// USER MODEL - Stores user account information
+// =====================================================
+model User {
+  id               String   @id @default(cuid())
+  username         String   @unique
+  password         String
+  balance          Float    @default(0)
+  vipLevel         Int      @default(0)
+  inviteCode       String   @unique
+  referrerId       String?
+  referrer         User?    @relation("UserReferrals", fields: [referrerId], references: [id])
+  referrals        User[]   @relation("UserReferrals")
+  status           String   @default("active") // active, suspended
+  isAdmin          Boolean  @default(false)
+  firstDepositMade Boolean  @default(false) // Track if first deposit was made
+  totalCommission   Float   @default(0) // Total commission earned from referrals
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  // Relations
+  transactions        Transaction[]
+  teamMembers         TeamMember[]
+  orders              Order[]
+  wallets             Wallet[]
+  referralCommissions ReferralCommission[] @relation("UserReferralCommissions")
+  earnedCommissions   ReferralCommission[] @relation("EarnedCommissions")
+
+  @@index([username])
+  @@index([inviteCode])
+  @@index([status])
+  @@index([vipLevel])
+  @@index([createdAt])
+}
+
+// =====================================================
+// PRODUCT MODEL - Menu items displayed to users
+// =====================================================
+model Product {
+  id            String   @id @default(cuid())
+  name          String
+  icon          String   // Icon URL or emoji
+  vipLevel      Int      // 0, 1, 2, or 3
+  minBalance    Float    // Minimum balance for this product
+  maxBalance    Float    // Maximum balance for this product
+  commission    Float    // Commission percentage
+  isActive      Boolean  @default(true)
+  order         Int      @default(0) // Display order
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  orders        Order[]
+
+  @@index([vipLevel])
+  @@index([isActive])
+}
+
+// =====================================================
+// TRANSACTION MODEL - Deposit and Withdrawal records
+// =====================================================
+model Transaction {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  type          String   // deposit, withdraw
+  amount        Float
+  status        String   @default("pending") // pending, approved, rejected
+  address       String?  // Wallet address
+  protocol      String?  // TRC-20, ERC-20, etc.
+  adminNote     String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userId])
+  @@index([type])
+  @@index([status])
+  @@index([createdAt])
+}
+
+// =====================================================
+// DEPOSIT ADDRESS MODEL - Admin-managed deposit addresses
+// =====================================================
+model DepositAddress {
+  id            String   @id @default(cuid())
+  address       String
+  protocol      String   // TRC-20, ERC-20, etc.
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([isActive])
+}
+
+// =====================================================
+// WALLET MODEL - User wallet addresses for withdrawal
+// =====================================================
+model Wallet {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  address       String
+  protocol      String   // TRC-20, ERC-20, etc.
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userId])
+  @@index([isActive])
+}
+
+// =====================================================
+// ORDER MODEL - Product orders/orders for commission
+// =====================================================
+model Order {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  productId     String
+  product       Product  @relation(fields: [productId], references: [id])
+  amount        Float
+  commission    Float
+  status        String   @default("pending") // pending, completed
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userId])
+  @@index([productId])
+  @@index([amount])
+  @@index([createdAt])
+  @@index([status])
+}
+
+// =====================================================
+// TEAM MEMBER MODEL - Referral team tracking
+// =====================================================
+model TeamMember {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  referralId    String   // The referred user's ID
+  level         Int      // 1, 2, or 3
+  createdAt     DateTime @default(now())
+
+  @@index([userId])
+  @@index([level])
+  @@index([referralId])
+}
+
+// =====================================================
+// REFERRAL COMMISSION MODEL - Track first deposit commissions
+// Level 1: 10% of first deposit
+// Level 2: 5% of first deposit
+// Level 3: 2% of first deposit
+// =====================================================
+model ReferralCommission {
+  id              String   @id @default(cuid())
+  userId          String   // User who earned the commission
+  user            User     @relation("UserReferralCommissions", fields: [userId], references: [id])
+  referralId      String   // User who made the deposit
+  referral        User     @relation("EarnedCommissions", fields: [referralId], references: [id])
+  depositId       String   // Transaction ID of the deposit
+  depositAmount   Float    // Original deposit amount
+  commissionRate  Float    // Commission percentage (10, 5, or 2)
+  commissionAmount Float   // Actual commission earned
+  level           Int      // 1, 2, or 3
+  status          String   @default("paid") // paid, pending
+  createdAt       DateTime @default(now())
+
+  @@index([userId])
+  @@index([referralId])
+  @@index([level])
+  @@index([createdAt])
+}
+
+// =====================================================
+// SETTINGS MODEL - Site-wide settings
+// =====================================================
+model Setting {
+  id            String   @id @default(cuid())
+  key           String   @unique
+  value         String
+  description   String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// =====================================================
+// MESSAGE MODEL - Announcements and notifications
+// =====================================================
+model Message {
+  id            String   @id @default(cuid())
+  type          String   // announcement, notification, activity
+  title         String
+  content       String
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([type])
+  @@index([isActive])
+}
+
+// =====================================================
+// INVITE CODE MODEL - Track invite codes
+// =====================================================
+model InviteCode {
+  id            String   @id @default(cuid())
+  code          String   @unique
+  isUsed        Boolean  @default(false)
+  usedBy        String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([code])
+  @@index([isUsed])
+}
+
+// =====================================================
+// SESSION MODEL - User sessions for auth
+// =====================================================
+model Session {
+  id            String   @id @default(cuid())
+  userId        String
+  token         String   @unique
+  expiresAt     DateTime
+  createdAt     DateTime @default(now())
+
+  @@index([token])
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+// =====================================================
+// RATE LIMIT MODEL - Track API rate limits
+// =====================================================
+model RateLimit {
+  id            String   @id @default(cuid())
+  identifier    String   // IP or user ID
+  endpoint      String   // API endpoint
+  count         Int      @default(1)
+  resetAt       DateTime
+  createdAt     DateTime @default(now())
+
+  @@unique([identifier, endpoint])
+  @@index([identifier])
+  @@index([resetAt])
+}
