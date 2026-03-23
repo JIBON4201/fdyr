@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     title: "MALL is an intelligent cloud global order matching center.",
     description: "MALL is an intelligent cloud global order matching center.",
     url: "https://chat.z.ai",
-    siteName: "Z.ai",
+    siteName: "MALL",
     type: "website",
   },
   twitter: {
