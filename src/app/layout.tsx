@@ -22,8 +22,8 @@ export const metadata: Metadata = {
     icon: "https://i.imgur.com/KyoUucm.jpeg",
   },
   openGraph: {
-    title: "Z.ai Code Scaffold",
-    description: "AI-powered development with modern React stack",
+    title: "MALL is an intelligent cloud global order matching center.",
+    description: "MALL is an intelligent cloud global order matching center.",
     url: "https://chat.z.ai",
     siteName: "Z.ai",
     type: "website",
