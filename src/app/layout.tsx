@@ -30,8 +30,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Z.ai Code Scaffold",
-    description: "AI-powered development with modern React stack",
+    title: "First site of commsion earning",
+    description: "MALL deposit is a secure and reliable platform to manage your funds online. Enjoy fast deposits, seamless transactions, and real-time balance updates. Trusted by users for its transparency, safety, and ease of use.",
   },
 };
 
