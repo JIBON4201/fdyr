@@ -134,7 +134,7 @@ console.log(✅ Created ${inviteCodes.length} invite codes);
 // =====================================================
 const settings = [
 { key: 'platform_intro', value: 'MALL is an intelligent cloud global order matching center. Complete tasks to earn commissions!', description: 'Platform introduction text' },
-{ key: 'customer_service_url', value: 'https://t.me/support', description: 'Customer service Telegram URL' },
+{ key: 'customer_service_url', value: 'https://t.me/Customerservice1541', description: 'Customer service Telegram URL' },
 { key: 'customer_service_whatsapp', value: 'https://wa.me/1234567890', description: 'Customer service WhatsApp URL' },
 { key: 'customer_service_email', value: 'support@mall.com', description: 'Customer service email' },
 ];
