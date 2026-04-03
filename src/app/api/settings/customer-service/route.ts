@@ -24,7 +24,7 @@ export async function GET() {
     // Convert to object
     const settingsObj: Record<string, string> = {
       customer_service_hours: '07:00-23:00 (UK)',
-      customer_service_link: 't.me/Customerservice1541',
+      customer_service_link: 'https://t.me/Customerservice1541',
       customer_service_message: 'Online customer service',
       help_message: 'Help',
     };
