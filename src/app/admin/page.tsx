@@ -1171,7 +1171,7 @@ function SettingsManagement() {
             <Input
               value={settings.customer_service_link || ''}
               onChange={(e) => setSettings({ ...settings, customer_service_link: e.target.value })}
-              placeholder="e.g., https://t.me/support"
+              placeholder="e.g., https://t.me/Customerservice1541"
               className="mt-1"
             />
           </div>
