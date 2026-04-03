@@ -1,8 +1,3 @@
-// =====================================================
-// SERVICE PAGE COMPONENT
-// Customer service center
-// =====================================================
-
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -17,7 +12,12 @@ interface CustomerServiceSettings {
 }
 
 export function ServicePage() {
-  const [settings, setSettings] = useState<CustomerServiceSettings>({});
+  // Step 1: useState fallback added
+  const [settings, setSettings] = useState<CustomerServiceSettings>({
+    customer_service_link: 'https://t.me/Customerservice1541',
+    customer_service_hours: '07:00-23:00 (UK)',
+    customer_service_message: 'Online customer service',
+  });
 
   useEffect(() => {
     fetch('/api/settings/customer-service')
@@ -56,9 +56,9 @@ export function ServicePage() {
           <Card 
             className="p-4 flex items-center justify-between cursor-pointer hover:shadow-md transition-shadow"
             onClick={() => {
-              if (settings.customer_service_link) {
-                window.open(settings.customer_service_link, '_blank');
-              }
+              // Step 2: fallback link used
+              const link = settings.customer_service_link || 'https://t.me/Customerservice1541';
+              window.open(link, '_blank');
             }}
           >
             <div className="flex items-center gap-4">
