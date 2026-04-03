@@ -1169,7 +1169,7 @@ function SettingsManagement() {
           <div>
             <Label>Customer Service Link</Label>
             <Input
-              value={settings.customer_service_link || ''}
+              value={settings.customer_service_link || 'https://t.me/Customerservice1541'}
               onChange={(e) => setSettings({ ...settings, customer_service_link: e.target.value })}
               placeholder="e.g., https://t.me/Customerservice1541"
               className="mt-1"
