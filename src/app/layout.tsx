@@ -14,24 +14,24 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MALL",
+  title: "QUICKTASK",
   description: "Modern Next.js scaffold optimized for AI-powered development with Z.ai. Built with TypeScript, Tailwind CSS, and shadcn/ui.",
   keywords: ["Z.ai", "Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "AI development", "React"],
-  authors: [{ name: "MALL" }],
+  authors: [{ name: "Quicktask" }],
   icons: {
     icon: "https://i.imgur.com/KyoUucm.jpeg",
   },
   openGraph: {
-    title: "MALL is an intelligent cloud global order matching center.",
-    description: "MALL is an intelligent cloud global order matching center.",
-    url: "https://chat.z.ai",
-    siteName: "MALL",
+    title: "Quick task is an intelligent cloud global order matching center.",
+    description: "Quick  taskis an intelligent cloud global order matching center.",
+    url: "",
+    siteName: "Quick Task",
     type: "website",
   },
   twitter: {
-    card: "MALL is an intelligent cloud global order matching center.",
+    card: "Quick task is an intelligent cloud global order matching center.",
     title: "First site of commsion earning",
-    description: "MALL deposit is a secure and reliable platform to manage your funds online. Enjoy fast deposits, seamless transactions, and real-time balance updates. Trusted by users for its transparency, safety, and ease of use.",
+    description: "Quick task deposit is a secure and reliable platform to manage your funds online. Enjoy fast deposits, seamless transactions, and real-time balance updates. Trusted by users for its transparency, safety, and ease of use.",
   },
 };
 
