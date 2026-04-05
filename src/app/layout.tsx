@@ -1,8 +1,5 @@
-import type { Metadata } from "next";
-
 export const metadata: Metadata = {
   title: "QuickTaskJob - Earn Money Online Easily",
-
   description:
     "QuickTaskJob is a simple and secure platform where you can earn money online by completing small tasks. Start earning daily with fast payments and an easy-to-use system.",
 
@@ -24,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "QuickTaskJob - Earn Money Online Easily",
     description:
-      "Join QuickTaskJob and start earning money online by completing simple tasks. Fast payments and easy system.",
+      "Join QuickTaskJob and start earning money online by completing simple tasks.",
     url: "https://quicktaskjob.com",
     siteName: "QuickTaskJob",
     type: "website",
@@ -34,6 +31,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Earn Money Online with QuickTaskJob",
     description:
-      "Complete simple tasks and earn money daily. Easy, fast, and secure earning platform.",
+      "Complete simple tasks and earn money daily.",
   },
 };
