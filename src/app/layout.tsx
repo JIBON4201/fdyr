@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "QUICKTASK",
-  description: "Modern Next.js scaffold optimized for AI-powered development with Z.ai. Built with TypeScript, Tailwind CSS, and shadcn/ui.",
+  description: "Quick task deposit is a secure and reliable platform to manage your funds online. Enjoy fast deposits, seamless transactions, and real-time balance updates. Trusted by users for its transparency, safety, and ease of use",
   keywords: ["Z.ai", "Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "AI development", "React"],
   authors: [{ name: "Quicktask" }],
   icons: {
